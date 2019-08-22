@@ -35,6 +35,10 @@ exp('requestScreenshot', (options: any, cb: (result: string) => void) => {
 
     const realCb = (cb !== undefined) ? cb : options;
 
+    realOptions.x = options.x;
+    realOptions.y = options.y;
+    realOptions.w = options.w;
+    realOptions.h = options.h;
     realOptions.resultURL = null;
     realOptions.targetField = null;
     realOptions.targetURL = `http://${GetCurrentResourceName()}/screenshot_created`;
@@ -53,6 +57,10 @@ exp('requestScreenshotUpload', (url: string, field: string, name: string, option
 
     const realCb = (cb !== undefined) ? cb : options;
 
+    realOptions.x = options.x;
+    realOptions.y = options.y;
+    realOptions.w = options.w;
+    realOptions.h = options.h;
     realOptions.targetURL = url;
     realOptions.targetField = field;
     realOptions.name = name;

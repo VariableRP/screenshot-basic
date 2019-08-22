@@ -24,6 +24,11 @@ class ScreenshotRequest {
     targetURL: string;
     targetField: string;
     name: string;
+
+    x: number;
+    y: number;
+    w: number;
+    h: number;
 }
 
 // from https://stackoverflow.com/a/12300351
@@ -124,20 +129,20 @@ class ScreenshotUI {
 
     handleRequest(request: ScreenshotRequest) {
         // read the screenshot
-        const read = new Uint8Array(window.innerWidth * window.innerHeight * 4);
-        this.renderer.readRenderTargetPixels(this.rtTexture, 0, 0, window.innerWidth, window.innerHeight, read);
+        const read = new Uint8Array(request.w * request.h * 4);
+        this.renderer.readRenderTargetPixels(this.rtTexture, request.x, request.y, request.w, request.h, read);
 
         // create a temporary canvas to compress the image
         const canvas = document.createElement('canvas');
         canvas.style.display = 'inline';
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = request.w;
+        canvas.height = request.h;
 
         // draw the image on the canvas
         const d = new Uint8ClampedArray(read.buffer);
 
         const cxt = canvas.getContext('2d');
-        cxt.putImageData(new ImageData(d, window.innerWidth, window.innerHeight), 0, 0);
+        cxt.putImageData(new ImageData(d, request.w, request.h), request.x, request.y);
 
         // encode the image
         let type = 'image/png';
