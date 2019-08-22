@@ -46,7 +46,7 @@ exp('requestScreenshot', (options: any, cb: (result: string) => void) => {
     }));
 });
 
-exp('requestScreenshotUpload', (url: string, field: string, options: any, cb: (result: string) => void) => {
+exp('requestScreenshotUpload', (url: string, field: string, name: string, options: any, cb: (result: string) => void) => {
     const realOptions = (cb !== undefined) ? options : {
         encoding: 'jpg'
     };
@@ -55,6 +55,7 @@ exp('requestScreenshotUpload', (url: string, field: string, options: any, cb: (r
 
     realOptions.targetURL = url;
     realOptions.targetField = field;
+    realOptions.name = name;
     realOptions.resultURL = `http://${GetCurrentResourceName()}/screenshot_created`;
     
     realOptions.correlation = registerCorrelation(realCb);
