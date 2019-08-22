@@ -23,6 +23,7 @@ class ScreenshotRequest {
 
     targetURL: string;
     targetField: string;
+    name: string;
 }
 
 // from https://stackoverflow.com/a/12300351
@@ -162,7 +163,7 @@ class ScreenshotUI {
 
         const getFormData = () => {
             const formData = new FormData();
-            formData.append(request.targetField, dataURItoBlob(imageURL), `screenshot.${request.encoding}`);
+            formData.append(request.targetField, dataURItoBlob(imageURL), `${request.name}.${request.encoding}`);
 
             return formData;
         };
